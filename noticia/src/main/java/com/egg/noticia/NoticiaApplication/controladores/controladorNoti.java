@@ -3,6 +3,7 @@ package com.egg.noticia.NoticiaApplication.controladores;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.egg.noticia.NoticiaApplication.entidades.entidadesNoti;
 import com.egg.noticia.NoticiaApplication.excepciones.MiException;
 import com.egg.noticia.NoticiaApplication.servicios.servicioNoti;
-
+@Controller
 @RequestMapping("/entidadesNoti")
 public class controladorNoti {
     @Autowired
@@ -26,14 +27,14 @@ public class controladorNoti {
     @PostMapping("/registro")
         public String registro(@RequestParam String titulo, @RequestParam String cuerpo ) throws MiException{
             servicioNoti.crearNoticia(titulo, cuerpo);
-            return "indexNoti";
+            return "registrar";
            }
           
   @GetMapping("/lista")
         public String listar(ModelMap modelo){
         List<entidadesNoti> noticias = servicioNoti.obtenerNoticias();
         modelo.addAttribute("noticias", noticias);
-        return "index.html";
+        return "indexNoti.html";
 }
 
     @GetMapping("modificar/{id}")
